@@ -31,10 +31,12 @@ if [ -f /etc/init ]; then
     mv /etc/init/* /etc/init.bak/
 fi
 
+echo "Setting select your local timezone..."
+sleep 2
+dpkg-reconfigure tzdata
 echo "Setting up locale. please choose your language and 'en_US.UTF-8' as a fallback..."
 sleep 2
 dpkg-reconfigure locales -u --terse
-dpkg-reconfigure tzdata -u --terse >/dev/null
 /usr/sbin/locale-gen >/dev/null
 
 echo "Running apt-get update"
@@ -62,6 +64,7 @@ echo "base configuration stage complete"
 echo ""
 echo ""
 PARALLEL=" -j`cat /proc/cpuinfo |grep processor|wc -l` " 
+echo "rsyslog" >/etc/syno_debian_services
 case "$ast" in
     astcompile)
         if [ ! -f asterisk-11-current.tar.gz ]; then
@@ -83,9 +86,12 @@ case "$ast" in
                 make samples || exit 6
             cp contrib/init.d/etc_default_asterisk /etc/default/asterisk
             cp contrib/init.d/rc.debian.asterisk /etc/init.d/asterisk
-            sed -i -e 's/__ASTERISK_SBIN_DIR__/\/usr\/sbin\/asterisk/g' -e 's/__ASTERISK_VARRUN_DIR__/\/var\/run\//g' -e 's/__ASTERISK_ETC_DIR__/\/etc\/asterisk/g' /etc/init.d/asterisk
+            sed -i -e 's/__ASTERISK_SBIN_DIR__/\/usr\/sbin\/g' -e 's/__ASTERISK_VARRUN_DIR__/\/var\/run\//g' -e 's/__ASTERISK_ETC_DIR__/\/etc\/asterisk/g' /etc/init.d/asterisk
             chmod 755 /etc/init.d/asterisk
             echo "Asterisk-11 has been compiled and installed"
+            if [ -f /usr/sbin/asterisk ]; then
+                echo "asterisk" >> /etc/syno_debian_services
+            fi
         fi
         ;;
     astpackage)

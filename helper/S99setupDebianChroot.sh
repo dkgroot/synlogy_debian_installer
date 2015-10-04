@@ -6,7 +6,7 @@ if [ -d ${debianroot} ]; then
             echo "setting up chroot"
             cd ${debianroot}/var/
             rm ${debianroot}/var/run
-            ln -s ${debianroot}/var/run  ../run
+            ln -s ../run run
             cd ${debianroot}/root
             
             mount -o bind /proc ${debianroot}/proc
