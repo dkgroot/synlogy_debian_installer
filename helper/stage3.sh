@@ -9,34 +9,37 @@
 # ./stage3.sh [astpackage]
 
 ast=${1:-astcompile}
-export LC_ALL=C
 
 cd /root
 echo "Fix cron package installation..."
 for i in $( grep "\" -- \"\\$\\@\"$" /var/lib/dpkg/info/cron.* -l ); do sed 's/-- "$@"/cron -- "$@"/g' $i > $i ; done
 
-#echo "Running dkpg-reconfigure"
-#dpkg-reconfigure --all
+echo "Fixing groups file"
+#echo "shadow:x:42:" >> /etc/group
+#echo "utmp:x:43:" >> /etc/group
+echo "crontab:x:102:" >> /etc/group
+#echo "syslog:x:103:" >> /etc/group
 
-echo "Setting up locale. please choose the correct location..."
+echo "Setting up locale. please choose your language and 'en_US.UTF-8' as a fallback..."
+sleep 2
 dpkg-reconfigure locales -u --terse
 dpkg-reconfigure tzdata -u --terse >/dev/null
 /usr/sbin/locale-gen >/dev/null
 
 echo "Running apt-get update"
 mv /root/sources.list /etc/apt
-apt-get update
+apt-get update || exit 1
 
 echo "Fixup apt-get"
-apt-get -f -y install
+apt-get -f -y install || exit 2
 
 if [ "${ast}" == "astcompile" ]; then
 	echo "Install libgmime-dev,glib-dev packages (Internet required)"
-	apt-get -y install libgmime-2.6-dev libglib2.0-dev ca-cacert ca-certificates openssl 
+	apt-get -y install libgmime-2.6-dev libglib2.0-dev ca-cacert ca-certificates openssl  || exit 3
 fi
 
 echo "Running apt-get update"
-apt-get -y dist-upgrade
+apt-get -y dist-upgrade || exit 4
 echo ""
 echo "setting up services to be started within the chroot environment"
 if [ -z "`grep rsyslog /etc/syno_debian_services`" ]; then 
@@ -52,7 +55,7 @@ case "$ast" in
     astcompile)
         if [ ! -f asterisk-11-current.tar.gz ]; then
 	        echo "Getting asterisk-11 sources..."
-        	wget --quiet http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-11-current.tar.gz
+        	wget --quiet http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-11-current.tar.gz || exit 5
         fi
        	tar xfz asterisk-11-current.tar.gz
         if [ -d asterisk-11.* ]; then
@@ -66,15 +69,12 @@ case "$ast" in
                 menuselect/menuselect --enable MOH-OPSOUND-ULAW --enable MOH-OPSOUND-ALAW --enable MOH-OPSOUND-G729 --enable MOH-OPSOUND-G722 menuselect.makeopts && \
                 make ${PARALLEL} && \
                 make install && \
-                make samples
+                make samples || exit 6
             cp contrib/init.d/etc_default_asterisk /etc/default/asterisk
             cp contrib/init.d/rc.debian.asterisk /etc/init.d/asterisk
             sed -i -e 's/__ASTERISK_SBIN_DIR__/\/usr\/sbin\/asterisk/g' -e 's/__ASTERISK_VARRUN_DIR__/\/var\/run\//g' -e 's/__ASTERISK_ETC_DIR__/\/etc\/asterisk/g' /etc/init.d/asterisk
             chmod 755 /etc/init.d/asterisk
             echo "Asterisk-11 has been compiled and installed"
-            if [ -z "`grep asterisk /etc/syno_debian_services`" ]; then
-            	echo rsyslog >> /etc/syno_debian_services
-            fi
         fi
         ;;
     astpackage)
@@ -86,7 +86,7 @@ echo ""
 echo ""
 if [ -f /usr/sbin/asterisk ] && [ -d /usr/include/asterisk ]; then
 	echo "Getting chan-sccp-b sources..."
-	git clone https://github.com/marcelloceschia/chan-sccp-b.git chan-sccp-b_trunk
+	git clone https://github.com/marcelloceschia/chan-sccp-b.git chan-sccp-b_trunk || exit 7
 	if [ -d chan-sccp-b_trunk ]; then
 		cd chan-sccp-b_trunk
 		echo "Bootstrapping chan-sccp-b..."
@@ -95,7 +95,7 @@ if [ -f /usr/sbin/asterisk ] && [ -d /usr/include/asterisk ]; then
 		./configure --prefix=/usr --enable-conference --enable-advanced-functions --enable-video --enable-video-layer --enable-optimization --disable-debug && \
 		make ${PARALLEL} && \
 		make install && \
-		cp conf/sccp.conf.minimal /etc/asterisk/sccp.conf
+		cp conf/sccp.conf.minimal /etc/asterisk/sccp.conf || exit 8
 		if [ -z "`grep 'noload => chan_skinny' /etc/asterisk/modules.conf`" ]; then
 			echo "noload => chan_skinny.so" >> /etc/asterisk/modules.conf
 		fi
