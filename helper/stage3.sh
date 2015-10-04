@@ -19,13 +19,17 @@ for grp in daemon:x:1: bin:x:2: sys:x:3: adm:x:4: tty:x:5: disk:x:6: man:x:12: k
     echo "${grp}" >> /etc/group
 done
         
-echo "Prevent installation of systemd"
+echo "Prevent installation of systemd/upstart"
 echo -e 'Package: systemd\nPin: origin ""\nPin-Priority: -1' > /etc/apt/preferences.d/systemd
 echo -e '\n\nPackage: *systemd*\nPin: origin ""\nPin-Priority: -1' >> /etc/apt/preferences.d/systemd
+echo -e 'Package: upstart\nPin: origin ""\nPin-Priority: -1' > /etc/apt/preferences.d/upstart
+echo -e '\n\nPackage: *upstart*\nPin: origin ""\nPin-Priority: -1' >> /etc/apt/preferences.d/upstart
         
-echo "Switching off upstart services"
-mkdir /etc/init /etc/init.bak
-mv /etc/init/* /etc/init.bak/
+if [ -f /etc/init ]; then
+    echo "Switching off upstart services"
+    mkdir /etc/init /etc/init.bak
+    mv /etc/init/* /etc/init.bak/
+fi
 
 echo "Setting up locale. please choose your language and 'en_US.UTF-8' as a fallback..."
 sleep 2
