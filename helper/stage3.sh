@@ -87,7 +87,9 @@ case "$ast" in
                 make samples || exit 6
             cp contrib/init.d/etc_default_asterisk /etc/default/asterisk
             cp contrib/init.d/rc.debian.asterisk /etc/init.d/asterisk
-            sed -i -e 's/__ASTERISK_SBIN_DIR__/\/usr\/sbin\/g' -e 's/__ASTERISK_VARRUN_DIR__/\/var\/run\//g' -e 's/__ASTERISK_ETC_DIR__/\/etc\/asterisk/g' /etc/init.d/asterisk
+            sed -i -e 's!__ASTERISK_SBIN_DIR__!/usr/sbin!g' /etc/init.d/asterisk
+            sed -i -e 's!__ASTERISK_VARRUN_DIR__!/var/run/!g' /etc/init.d/asterisk
+            sed -i -e 's!__ASTERISK_ETC_DIR__!/etc/asterisk/!g' /etc/init.d/asterisk
             chmod 755 /etc/init.d/asterisk
             echo -e "\e[1mAsterisk-11 has been compiled and installed\e[0m"
             if [ -f /usr/sbin/asterisk ]; then
