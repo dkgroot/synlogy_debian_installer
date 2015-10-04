@@ -1,8 +1,8 @@
 x15 Series
 ----------
 
-System Model | Architecture | CPU Model
-=============|==============|==========================================================
+System Model | Architecture | CPU Model 
+------------ | ------------ | ---------------------------------------------
 DS115j | armhf | Marvell Armada 370 armv7l
 DS215j | armhf | Marvell Armada 375 armv7l
 DS215+ | armhf | Annapurna Alpine AL212 armv7l
@@ -19,7 +19,54 @@ x14 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
+DS114 | armhf | Marvell Armada 370 armv7l
+DS214se | armhf | Marvell Armada 370 armv7l 
+DS214 | armhf | Marvell Armada XP armv7l
+DS214+ | armhf | Marvell Armada XP armv7l
+DS214play | i386 | Intel Atom CE5335 i686
+DS414 | armhf | Marvell Armada XP armv7l
+DS414slim | armhf | Marvell Armada 370 armv7l
+DS414j | armhf | Mindspeed Comcerto 2000 armv7l
+RS214 | armhf | Marvell Armada 370 armv7l
+RS2414(RP)+ | amd64 | Intel Atom D2700 x86_64
+
+x13 Series
+----------
+
+System Model | Architecture | CPU Model
+------------ | ------------ | ---------------------------------------------
+DS213air | armel | Marvell Kirkwood mv6282 armv5te
+DS213j | armhf | Marvell Armada 370 armv7l
+DS213 | armel | Marvell Kirkwood mv6282 armv5te
+DS213+ | ppc64el | Freescale QorIQ P1022 ppc
+DS413j | armel | Marvell Kirkwood mv6282 armv5te
+DS413 | ppc64el | Freescale QorIQ P1022 ppc
+DS1513+ | amd64 | Intel Atom D2700 x86_64
+File architecture.md saved
+root@j62747:/data/synology/syno_debian_setup# cat architecture.md
+x15 Series
+----------
+
+System Model | Architecture | CPU Model
+------------ | ------------ | ---------------------------------------------
+DS115j | armhf | Marvell Armada 370 armv7l
+DS215j | armhf | Marvell Armada 375 armv7l
+DS215+ | armhf | Annapurna Alpine AL212 armv7l
+DS415play | armhf | Intel Atom CE5335 i686
+DS415+ | armhf | Intel Atom C2538 x86_64
+DS715 | armhf | Annapurna Alpine AL314 armv7l
+DS1515 | armhf | Annapurna Alpine AL314 armv7l
+DS1515+ | armhf | Intel Atom C2538 x86_64
+DS1815+ | armhf | Intel Atom C2538 x86_64
+DS2015xs | armhf | Annapurna Alpine AL514 armv7l
+DS3615xs | armhf | Intel Core i3-4130 x86_64
+
+x14 Series
+----------
+
+System Model | Architecture | CPU Model
+------------ | ------------ | ---------------------------------------------
 DS114 | armhf | Marvell Armada 370 armv7l
 DS214se | armhf | Marvell Armada 370 armv7l
 DS214 | armhf | Marvell Armada XP armv7l
@@ -35,7 +82,7 @@ x13 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS213air | armel | Marvell Kirkwood mv6282 armv5te
 DS213j | armhf | Marvell Armada 370 armv7l
 DS213 | armel | Marvell Kirkwood mv6282 armv5te
@@ -51,7 +98,7 @@ x12 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS112+ | armel | Marvell Kirkwood mv6282 2.0Ghz ARM (Marvell ARMADA 300)
 DS112j | armel | Marvell Kirkwood mv6281 1.0Ghz ARM (Marvell ARMADA 300)
 DS112 | armel | Marvell Kirkwood mv6282 1.6Ghz ARM (Marvell ARMADA 300)
@@ -73,7 +120,7 @@ x11 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS111 | armel | Marvell Kirkwood mv6282 1.6Ghz ARM (Marvell ARMADA 300)
 DS211j | armel | Marvell Kirkwood mv6281 1.2Ghz ARM
 DS211 | armel | Marvell Kirkwood mv6282 1.6Ghz ARM (Marvell ARMADA 300)
@@ -94,7 +141,7 @@ x10 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS110j | armel | Marvell Kirkwood mv6281 ARM
 DS110+ | powerpc | Freescale PowerQUICC III MPC8533E PPC
 DS210j | armel | Marvell Kirkwood mv6281 ARM
@@ -109,7 +156,7 @@ x09 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS109j | powerpc | Freescale PowerQUICC II MPC8241 PPC
 DS109 | armel | Marvell Kirkwood mv6281 ARM
 DS109+ | powerpc | Freescale PowerQUICC III MPC8533 PPC
@@ -129,7 +176,7 @@ x08 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS108j | powerpc | Freescale PowerQUICC II MPC8241 PPC
 DS408 | powerpc | Freescale PowerQUICC III MPC8543 PPC
 DS508 | powerpc | Freescale PowerQUICC III MPC8543 PPC
@@ -140,7 +187,7 @@ x07 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS107e | powerpc | Freescale PowerQUICC II MPC8241 PPC
 DS107 | powerpc | Freescale PowerQUICC II MPC8241 PPC
 DS107+ | armel | Marvell Orion mv5281 ARM
@@ -154,7 +201,7 @@ x06 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS-106e | powerpc | Freescale PowerQUICC II MPC8241 PPC
 DS-106 | powerpc | Freescale PowerQUICC II MPC8241 PPC
 DS-106x | powerpc | Freescale PowerQUICC II MPC8241 PPC
@@ -167,7 +214,7 @@ x01 Series
 ----------
 
 System Model | Architecture | CPU Model
-=============|==============|==========================================================
+------------ | ------------ | ---------------------------------------------
 DS-101 | armel | Intel XScale FWIXP420BB ARM
 DS-101j | armel | Intel XScale FWIXP420BB ARM
 DS-101g+ | powerpc | Freescale PowerQUICC II MPC8241 PPC
