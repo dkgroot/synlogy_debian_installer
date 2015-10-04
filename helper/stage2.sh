@@ -30,15 +30,15 @@ if [ -f syno_debian/debootstrap/debootstrap ]; then
 
 	echo "coping some files..."
 	mkdir -p /usr/local/etc/init.d/
-	mv syno_debian/root/99setupDebianChroot.sh /usr/local/etc/rc.d/
-	mv syno_debian/root/switch2debian.sh /usr/sbin/
+	mv syno_debian/root/S99setupDebianChroot.sh /usr/local/etc/rc.d/
+	mv syno_debian/root/switch2debian.sh /usr/local/sbin/
 	
 	echo "changing permissions..."
-	chmod 755 /usr/local/etc/rc.d/99setupDebianChroot.sh
-	chmod 755 /usr/sbin/switch2debian.sh
+	chmod 755 /usr/local/etc/rc.d/S99setupDebianChroot.sh
+	chmod 755 /usr/local/sbin/switch2debian.sh
 
 	echo "initializing chroot..."
-	. /usr/local/etc/rc.d/99setupDebianChroot.sh start
+	. /usr/local/etc/rc.d/S99setupDebianChroot.sh start
 	
 	echo ""
 	echo "Stage 3 (running inside chroot)"

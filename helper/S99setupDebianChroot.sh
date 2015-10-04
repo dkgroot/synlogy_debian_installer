@@ -4,6 +4,11 @@ if [ -d ${debianroot} ]; then
     case "$1" in
         start)
             echo "setting up chroot"
+            cd ${debianroot}/var/
+            rm ${debianroot}/var/run
+            ln -s ${debianroot}/var/run  ../run
+            cd ${debianroot}/root
+            
             mount -o bind /proc ${debianroot}/proc
             mount -o bind /sys ${debianroot}/sys
             mount -o bind /dev ${debianroot}/dev

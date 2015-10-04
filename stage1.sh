@@ -110,7 +110,7 @@ if [ ! -z "${bootstrapper}" ]; then
 		echo "Creating tgz file"
 		mkdir -p syno_debian/root/
 		cp helper/stage?.sh syno_debian/root/
-		cp helper/99setupDebianChroot.sh helper/switch2debian.sh helper/inputrc helper/stripper.sh syno_debian/root/
+		cp helper/S99setupDebianChroot.sh helper/switch2debian.sh helper/inputrc helper/stripper.sh syno_debian/root/
 		cp helper/bash.bashrc syno_debian/etc
 		case "${system}" in
 			sid)
