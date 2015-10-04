@@ -39,9 +39,9 @@ System Model | Architecture | CPU Model
 DS213air | armel | Marvell Kirkwood mv6282 armv5te
 DS213j | armhf | Marvell Armada 370 armv7l
 DS213 | armel | Marvell Kirkwood mv6282 armv5te
-DS213+ | ppc64el | Freescale QorIQ P1022 ppc
+DS213+ | powerpcspe | Freescale QorIQ P1022 ppc
 DS413j | armel | Marvell Kirkwood mv6282 armv5te
-DS413 | ppc64el | Freescale QorIQ P1022 ppc
+DS413 | powerpcspe | Freescale QorIQ P1022 ppc
 DS1513+ | amd64 | Intel Atom D2700 x86_64
 DS1813+ | amd64 | Intel Atom D2700 x86_64
 DS713+ | amd64 | Intel Atom D2700 x86_64
