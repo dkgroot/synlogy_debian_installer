@@ -9,51 +9,52 @@
 # ./stage2.sh [astpackage]
 
 ast=${1:-astcompile}
+debianroot=/volume1/syno_debian/
 
-echo "Stage 2"
-echo "=======" 
+echo -e "\e[1mStage 2\e[0m"
+echo -e "\e[1m=======\e[0m" 
 cd /volume1
 if [ -f syno_debian/debootstrap/debootstrap ]; then
-	echo "Finishing debootstrap installation (takes a bit of time, standby)..."
+	echo -e "\e[1mFinishing debootstrap installation (takes a bit of time, standby)...\e[0m"
 	chroot syno_debian /debootstrap/debootstrap --second-stage >/dev/null
 	if [ $? != 0 ]; then
-		echo "Error occured during the debootstrap second stage, please check /volume1/syno_debian/debootstrap/debootstrap.log to see what happened"
+		echo -e "\e[31m\e[1mError occured during the debootstrap second stage, please check /volume1/syno_debian/debootstrap/debootstrap.log to see what happened\e[0m"
 		exit 1
 	fi
-	echo "debootstrap second stage has finished."
+	echo -e "\e[1mdebootstrap second stage has finished.\e[0m"
 	
-	echo "coping some files..."
-	cp /etc/passwd /volume1/syno_debian/etc/
-	cp /etc/shadow /volume1/syno_debian/etc/
-	cp /etc/group /volume1/syno_debian/etc/
-	mv syno_debian/root/inputrc /volume1/syno_debian/etc/
+	echo -e "\e[1mcopying some files...\e[0m"
+	cp /etc/passwd ${debianroot}/etc/
+	cp /etc/shadow ${debianroot}/etc/
+	cp /etc/group ${debianroot}/etc/
+	mv syno_debian/root/inputrc ${debianroot}/etc/
 
-	echo "coping some files..."
+	echo -e "\e[1mcopying some files...\e[0m"
 	mkdir -p /usr/local/etc/init.d/
 	mv syno_debian/root/S99setupDebianChroot.sh /usr/local/etc/rc.d/
 	mv syno_debian/root/switch2debian.sh /usr/local/sbin/
 	
-	echo "changing permissions..."
+	echo -e "\e[1mchanging permissions...\e[0m"
 	chmod 755 /usr/local/etc/rc.d/S99setupDebianChroot.sh
 	chmod 755 /usr/local/sbin/switch2debian.sh
 
-	echo "initializing chroot..."
+	echo -e "\e[1minitializing chroot...\e[0m"
 	. /usr/local/etc/rc.d/S99setupDebianChroot.sh start
 	
 	echo ""
-	echo "Stage 3 (running inside chroot)"
-	echo "===============================" 
-	chroot syno_debian /bin/bash --rcfile /etc/bash.bashrc /root/stage3.sh "$ast"
-	echo "starting services"
+	echo -e "\e[1mStage 3 (running inside chroot)\e[0m"
+	echo -e "\e[1m===============================\e[0m" 
+	chroot ${syno_debian} /bin/bash --rcfile /etc/bash.bashrc /root/stage3.sh "$ast"
+	echo -e "\e[1mstarting services\e[0m"
 	if [ -f ${debianroot}/etc/syno_debian_services ]; then
 		for service in `cat ${debianroot}/etc/syno_debian_services`; do
-			echo "starting ${service}..."
+			echo -e "\e[1mstarting ${service}...\e[0m"
 			chroot ${debianroot} /etc/init.d/${service} start
 		done
 	fi
 	
-	echo "Stage 3 Finished"
-	echo "================" 
+	echo -e "\e[1mStage 3 Finished\e[0m"
+	echo -e "\e[1m================\e[0m" 
 	echo ""
 	echo "+-----------------------------------------------+"
 	echo "| BTW: You can use:                             |"
@@ -64,7 +65,7 @@ if [ -f syno_debian/debootstrap/debootstrap ]; then
 	echo "| to get back to the synology environment again |"
 	echo "+-----------------------------------------------+"
 	echo ""
-	echo "Enjoy !"
+	echo -e "\e[1mEnjoy !\e[0m"
 else
-	echo "The syno_debian.tgz was not unpacked or formed correctly"
+	echo -e "\e[31m\e[1mThe syno_debian.tgz was not unpacked or formed correctly\e[0m"
 fi

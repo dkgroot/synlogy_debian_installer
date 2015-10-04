@@ -12,8 +12,8 @@
 # architecture can be powerpc, powerpcspe, ppc64el, armhf, armel, (i386, amd64)
 
 if [ -z "$1" ]; then
-	echo "synology debian setup script"
-	echo "============================"
+	echo -e "\e[1msynology debian setup script\e[0m"
+	echo -e "\e[1m============================\e[0m"
 	echo "$0 architecture [system] [asterisk]"
 	echo "usage: $0 [powerpc, powerpcspe, ppc64el, armhf, armel, i386, amd64] [jessie|sid] [astcompile|astpackage]"
 	echo ""
@@ -29,11 +29,11 @@ arch=$1
 system=${2:-sid}
 ast=${3:-astcompile}
 
-echo "Running $0 $arch $system $ast"
+echo -e "\e[1mRunning $0 $arch $system $ast\e[0m"
 echo ""
 
 # check for debootstrap
-echo "Testing for 'debootstrap' packages..."
+echo -e "\e[1mTesting for 'debootstrap' packages...\e[0m"
 bootstrapper=`which debootstrap`
 if [ -z "${bootstrapper}" ]; then
 	# install debootstarp
@@ -69,7 +69,7 @@ case "${system}" in
 				libusb-dev,liblua5.1-0-dev,subversion,git,libtiff5-dev,libpng12-dev"
 				;;
 			*)
-				echo "ERROR: the asterisk:${ast} setting on the commandline is unknown"
+				echo -e "\e[31m\e[1mERROR: the asterisk:${ast} setting on the commandline is unknown\e[0m"
 				exit 3
 				;;
 		esac
@@ -88,26 +88,26 @@ case "${system}" in
 				libusb-dev,liblua5.1-0-dev,subversion,git,libtiff5-dev,libpng12-dev"
 				;;
 			*)
-				echo "ERROR: the asterisk:${ast} setting on the commandline is unknown"
+				echo -e "\e[31m\e[1mERROR: the asterisk:${ast} setting on the commandline is unknown\e[0m"
 				exit 3
 				;;
 		esac
 		;;
 	*)
-		echo "ERROR: the system:${system} is unknown"
+		echo -e "\e[31m\e[1mERROR: the system:${system} is unknown\e[0m"
 		exit 2
 esac
 #libradiusclient-ng-dev,libcorosync-dev,unixodbc-dev,libcurl4-nss-dev,libcurl4-openssl-dev,libgmime-2.6-dev,
 if [ ! -z "${bootstrapper}" ]; then
-	echo "Running debootstrap, please stand by (this will take a while)...."
+	echo -e "\e[1mRunning debootstrap, please stand by (this will take a while)....\e[0m"
 	# starting
 	echo ""
 	${bootstrapper} --no-check-certificate --no-check-gpg --foreign --arch ${arch} --include="${base_requirements},${compile_requirements},${asterisk_requirements}" --exclude="${prevent_installation}" --verbose ${system} syno_debian | \
 		tee debootstrap.log | grep -e "Resolving" -e "Found" -e "Retrieving Release"
 	if [ $? == 0 ]; then
-		echo "debootstrap finished."
+		echo -e "\e[1mdebootstrap finished.\e[0m"
 		echo ""
-		echo "Creating tgz file"
+		echo -e "\e[1mCreating tgz file\e[0m"
 		mkdir -p syno_debian/root/
 		cp helper/stage?.sh syno_debian/root/
 		cp helper/S99setupDebianChroot.sh helper/switch2debian.sh helper/inputrc helper/stripper.sh syno_debian/root/
@@ -125,10 +125,10 @@ if [ ! -z "${bootstrapper}" ]; then
 		tar cfz syno_debian.tgz syno_debian
 		#rm -rf syno_debian
 		echo ""
-		echo "syno_debian.tgz has been created"
+		echo -e "\e[1msyno_debian.tgz has been created\e[0m"
 		echo ""
-		echo "It's time for stage 2"
-		echo "====================="
+		echo -e "\e[1mIt's time for stage 2\e[0m"
+		echo -e "\e[1m=====================\e[0m"
 		echo "Please copy the syno_debian.tgz file to your synology nas in the /volume1, using [scp, winscp, ftp, samba]"
 		echo ""
 		echo "when the file has been copied completely, log into your nas (telnet/ssh) and execute:"
@@ -145,6 +145,6 @@ if [ ! -z "${bootstrapper}" ]; then
 		echo "'debootstrap' failed, please check ./debootstrap.log to see what went wrong"
 	fi
 else
-	echo "The 'debootstrap' program is missing on your system. Please install this package manually before trying again."
+	echo -e "\e[31m\e[1mThe 'debootstrap' program is missing on your system. Please install this package manually before trying again.\e[0m"
 fi
 
