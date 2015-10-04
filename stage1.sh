@@ -134,10 +134,10 @@ if [ ! -z "${bootstrapper}" ]; then
 		echo "when the file has been copied completely, log into your nas (telnet/ssh) and execute:"
 		case "$ast" in
 			astpackage)
-				echo "    cd /volume1/ && tar xzf syno_debian.tgz && /volume1/syno_debian/root/stage2.sh astpackage"
+				echo -e "\e[1m    cd /volume1/ && tar xzf syno_debian.tgz && /volume1/syno_debian/root/stage2.sh astpackage\e[0m"
 				;;
 			astcompile)
-				echo "    cd /volume1/ && tar xzf syno_debian.tgz && /volume1/syno_debian/root/stage2.sh"
+				echo -e "\e[1m    cd /volume1/ && tar xzf syno_debian.tgz && /volume1/syno_debian/root/stage2.sh\e[0m"
 				;;
 		esac
 		echo "To continue the installation process"
