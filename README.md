@@ -38,7 +38,7 @@ Stage 2
   * You have logged into the NAS device using ssh, telnet, serial connection
 * Execute the command provided by the stage1.sh script in the one of the last lines, looking like
 
-    cd /volume1/ && tar xzf syno_debian.tgz && /volume1/syno_debian/root/stage2.sh [astpackage]
+    <pre>cd /volume1/ && tar xzf syno_debian.tgz && /volume1/syno_debian/root/stage2.sh [astpackage]</pre>
 
 Finished
 ========
