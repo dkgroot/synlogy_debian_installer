@@ -3,8 +3,8 @@ Automated debian installer on synolgy
 
 This includes all the necessary development package to compile and install asterisk-11/asterisk-13 and the latest chan-sccp-b.
 
-== Stage 1 ==
-
+Stage 1
+-------
 This has to be executed on any Unix/Linux host system, but not the synology NAS itself. If you are running windows and don't 
 have access to any unix/linux system, you may have to build a small virtual machine to complete this task.
 
@@ -30,7 +30,8 @@ have access to any unix/linux system, you may have to build a small virtual mach
 * Get a cup of coffee while the first stage completes. The result will be a newly created tgz file, which has to be moved to
   your synology NAS in the /volume1 directory. This can be done using for example scp, ftp or samba.
   
-== Stage 2 ==
+Stage 2
+-------
 * Requirements: 
   * You have successfully created the tgz file in the previous stage and transfered the file to your NAS into directory /volume1
   * You have logged into the NAS device using ssh, telnet, serial connection
@@ -38,7 +39,8 @@ have access to any unix/linux system, you may have to build a small virtual mach
 
     <pre>cd /volume1/ && tar xzf syno_debian.tgz && /volume1/syno_debian/root/stage2.sh [astpackage]</pre>
 
-== Finished ==
+Finished
+--------
 Once stage 2 has completed successfully, you will have a fully functional debian chroot environment with asterisk and chan-sccp-b
 installed on top of your synology base system. The synology operating itself has not been changed. You can use:
 
