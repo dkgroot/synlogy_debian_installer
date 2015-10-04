@@ -51,7 +51,8 @@ if [ -z "${bootstrapper}" ]; then
 fi
 
 bootstrapper=`which debootstrap`
-base_requirements="bash-completion,htop,joe,debian-archive-keyring,debian-keyring,debian-ports-archive-keyring"
+base_requirements="bash-completion,htop,joe,debian-archive-keyring,debian-keyring,debian-ports-archive-keyring,sysvinit-core,sysvinit,sysvinit-utils"
+prevent_installation="systemd,upstart"
 compile_requirements="gcc,g++,autoconf,automake,make,flex,bison,locales,gdb"
 case "${system}" in
 	jessie)
@@ -101,7 +102,7 @@ if [ ! -z "${bootstrapper}" ]; then
 	echo "Running debootstrap, please stand by (this will take a while)...."
 	# starting
 	echo ""
-	${bootstrapper} --no-check-certificate --no-check-gpg --foreign --arch ${arch} --include="${base_requirements},${compile_requirements},${asterisk_requirements}" --verbose ${system} syno_debian | \
+	${bootstrapper} --no-check-certificate --no-check-gpg --foreign --arch ${arch} --include="${base_requirements},${compile_requirements},${asterisk_requirements}" --exclude="${prevent_installation}" --verbose ${system} syno_debian | \
 		tee debootstrap.log | grep -e "Resolving" -e "Found" -e "Retrieving Release"
 	if [ $? == 0 ]; then
 		echo "debootstrap finished."

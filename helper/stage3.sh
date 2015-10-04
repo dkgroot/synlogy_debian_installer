@@ -15,12 +15,15 @@ echo "Fix cron package installation..."
 for i in $( grep "\" -- \"\\$\\@\"$" /var/lib/dpkg/info/cron.* -l ); do sed 's/-- "$@"/cron -- "$@"/g' $i > $i ; done
 
 echo "Fixing groups file"
-#echo "shadow:x:42:" >> /etc/group
-#echo "utmp:x:43:" >> /etc/group
-echo "crontab:x:102:" >> /etc/group
-#echo "syslog:x:103:" >> /etc/group
-
-echo "Switching of upstart services"
+for grp in daemon:x:1: bin:x:2: sys:x:3: adm:x:4: tty:x:5: disk:x:6: man:x:12: kmem:x:15: sudo:x:27: dip:x:30: backup:x:34: operator:x:37: list:x:38: shadow:x:42: utmp:x:43: users:x:100: crontab:x:102: syslog:x:103:; do
+    echo "${grp}" >> /etc/group
+done
+        
+echo "Prevent installation of systemd"
+echo -e 'Package: systemd\nPin: origin ""\nPin-Priority: -1' > /etc/apt/preferences.d/systemd
+echo -e '\n\nPackage: *systemd*\nPin: origin ""\nPin-Priority: -1' >> /etc/apt/preferences.d/systemd
+        
+echo "Switching off upstart services"
 mkdir /etc/init /etc/init.bak
 mv /etc/init/* /etc/init.bak/
 
