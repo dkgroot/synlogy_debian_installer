@@ -20,6 +20,10 @@ echo "Fixing groups file"
 echo "crontab:x:102:" >> /etc/group
 #echo "syslog:x:103:" >> /etc/group
 
+echo "Switching of upstart services"
+mkdir /etc/init /etc/init.bak
+mv /etc/init/* /etc/init.bak/
+
 echo "Setting up locale. please choose your language and 'en_US.UTF-8' as a fallback..."
 sleep 2
 dpkg-reconfigure locales -u --terse
