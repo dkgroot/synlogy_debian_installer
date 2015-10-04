@@ -1,5 +1,5 @@
-Automated debian installer on synolgy
-=====================================
+Automated debian installer on synology NAS
+==========================================
 
 This includes all the necessary development package to compile and install asterisk-11/asterisk-13 and the latest chan-sccp-b.
 
@@ -24,6 +24,7 @@ have access to any unix/linux system, you may have to build a small virtual mach
   
     * architecture: matches the cpu type used by your synology device and should be one of
       powerpc, powerpcspe, ppc64el, armhf, armel, i386, amd64
+      See: [Synology NAS -> architecture table](architecture.md)
     * system (optional|default:sid): must be either jessie(stable) or sid(unstable)"
     * asterisk (optional|default:astcompile): should asterisk be compiled from source, or using asterisk-dev package"
 
