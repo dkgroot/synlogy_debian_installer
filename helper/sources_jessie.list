@@ -1,0 +1,4 @@
+deb http://http.us.debian.org/debian jessie main contrib non-free
+deb http://http.us.debian.org/debian jessie-updates main contrib non-free
+deb http://http.us.debian.org/debian jessie-backports main contrib non-free
+deb http://security.debian.org jessie/updates main
