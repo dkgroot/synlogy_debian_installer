@@ -2,6 +2,7 @@
 #
 # syno debian setup script
 # written by: Diederik de Groot <ddegroot [at] users.sf.net>
+#             Benjamin Busch <kpnetdesign [at] users.sf.net>
 # copyright: GPL2 2015
 #
 #
@@ -21,7 +22,7 @@ if [ -z "$1" ]; then
 	echo "system (optional|default:sid): must be either jessie(stable) or sid(unstable)"
 	echo "asterisk (optional|default:astcompile): should asterisk be compiled from source, or using asterisk-dev package"
 	echo ""
-	echo "Written by Diederik de Groot <ddegroot [at] users.sf.net>"
+	echo "Written by Diederik de Groot <ddegroot [at] users.sf.net>, Benjamin Busch <kpnetdesign [at] users.sf.net>"
 	exit 1
 fi
 

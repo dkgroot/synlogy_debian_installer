@@ -1,6 +1,7 @@
 #!/bin/bash
 # syno debian setup stage3 script
 # written by: Diederik de Groot <ddegroot [at] users.sf.net>
+#             Benjamin Busch <kpnetdesign [at] users.sf.net>
 # copyright: GPL2 2015
 #
 # Usage 
